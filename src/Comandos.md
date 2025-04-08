@@ -3,7 +3,7 @@
     6b65f89a8b97   lufertony/simulador-do-caos:v1   "docker-entrypoint.s…"   12 seconds ago   Exited (1) 6 seconds ago             silly_hofstadter   
     06fd879e063f   lufertony/simulador-do-caos:v1   "docker-entrypoint.s…"   3 minutes ago    Exited (0) 3 minutes ago             mystifying_gauss
 
-### docker restart on-failure
+# restart on-failure
 #### usado somente se o container for encerrado com erro (status != 0)
         docker container run -d -p 8080:3000 --restart=on-failure lufertony/simulador-do-caos:v1
         docker container run <-d ou -it> <-p porta:porta> --restart=<tipo de restart> <imagem>:<versao>
@@ -15,7 +15,7 @@
 
 ## PS. podemos usar o watch 'docker ps -a' para observar os restarts no terminal
 
-### restart unless-stopped:
+# restart unless-stopped:
 ####    só vai parar de restartar o container caso em caso de parada manual com o comando docker container stop <id>
             docker container run -d -p 8080:3000 --restart=unless-stopped lufertony/simulador-do-caos:v1
 
@@ -23,7 +23,7 @@
             docker container stop <id>
             docker container start <id>
 
-### restart always
+# restart always
 ####    restarta o container em todos os cenarios, em caso de pausa com erro, com sucesso ou queda do docker
             docker container run -d -p 8080:3000 --restart=always lufertony/simulador-do-caos:v1
 
