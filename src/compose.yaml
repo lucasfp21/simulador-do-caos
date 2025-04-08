@@ -1,0 +1,6 @@
+services:
+  web:
+    image: lufertony/simulador-do-caos:latest
+    ports:
+      - 8080:3000
+    restart: always
