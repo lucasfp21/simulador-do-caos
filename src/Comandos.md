@@ -20,8 +20,8 @@
             docker container run -d -p 8080:3000 --restart=unless-stopped lufertony/simulador-do-caos:v1
 
 ####    para parar esse container somente usando o stop:
-####        docker container stop <id>
-####        docker container start <id>
+            docker container stop <id>
+            docker container start <id>
 
 ### restart always
 ####    restarta o container em todos os cenarios, em caso de pausa com erro, com sucesso ou queda do docker
