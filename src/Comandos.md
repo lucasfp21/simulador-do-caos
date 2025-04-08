@@ -13,7 +13,7 @@
 
 ####    o restart on-failure vai restartar o container mesmo em caso do docker em si parar e voltar, o unnico caso onde o restart nao acontece é quando o container e encerrado com sucesso.
 
-## PS. podemos usar o watch 'docker ps -a' para observar os restarts no terminal
+#### PS. podemos usar o watch 'docker ps -a' para observar os restarts no terminal
 
 # restart unless-stopped:
 ####    só vai parar de restartar o container caso em caso de parada manual com o comando docker container stop <id>
