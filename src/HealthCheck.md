@@ -23,6 +23,6 @@
 ### Healthcheck no DOCKERFILE:
     HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=2 CMD [ "curl", "-f", "http:localhost:3000/health" ]
 
-    depois tem que fazer o bild da imagem:
+#### depois tem que fazer o bild da imagem:
         docker build -t <nome da imagem>:<tag> -f <caminho/dockerfile> <path/de/contexto>
 
