@@ -11,3 +11,10 @@ services:
       # retries: 2
       # start_period: 30s
       # disable: true
+    cpuset: "4"
+    memswap_limit: 512M
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
