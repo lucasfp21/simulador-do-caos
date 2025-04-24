@@ -1,0 +1,23 @@
+Docker Scout é basicamente um inventario de pacotes onde é possivel checar vulnerabilidades e potenciais problemas que essas dependencias
+podem vir a apresentar no decorrer do tempo no projeto
+
+* Geralmente quando instalamos o docker desktop ele vem instaldo por padrao
+* Caso nao tenha instalado podemos procurar o repositorio docker scout e realizar a instalacao no nosso ambiente
+    - para validar se temos o docker scout podemos rodar o comando:
+        docker scout version
+
+# Principais comandos do docker scout:
+    para ver um overview das vulnerabilidades
+        docker scout quickview <nome da image>:<tag>
+    
+    para mostrar as vulnerabilidades com mais detalhes
+        docker scout cves <imagem>:<tag>
+    para formatar a saida em outro formato:
+        docker scout cves --format markdown <imagem>:<tag> > arquivo.md
+
+    para mostrar as vulnerabilidades do projeto:
+        docker scout quickview </caminho/do/projeto>
+            docker scout quickview fs://.
+    para adicionar um repositorio ao docker scout via linha de comando
+        docker scout repo enable --org <nome da organizacao no docker hub> <nome completo da imagem>
+        docker scout repo enable --org lufertony lufertony/simulador-do-caos
