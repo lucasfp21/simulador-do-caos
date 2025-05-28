@@ -1,0 +1,10 @@
+# Restart Policy (restart o container dentro do pod e nao o pod)
+    always (restart toda vez independente se foi encerrado com sucesso ou erro)
+    onFailure, restart somente se for encerrado com erro
+    never, nunca restarta
+
+    para ver qual restart Policy esta ativa no pod
+        kubectl get pod/caos-7fff46899b-4q59t -o yaml | grep -i restartPolicy
+            geralmente é o always
+    
+    
