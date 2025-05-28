@@ -77,4 +77,32 @@
     kubectl exec -it <nome do pod> -- /bin/sh
 
     * TCP
-    
+        pinga uma porta especifica no container e se nao tiver uma resposta ok ele reinicia o container
+
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: caos
+        spec:
+        replicas: 1
+        selector:
+            matchLabels:
+            app: caos
+        template:
+            metadata:
+            labels:
+                app: caos
+            spec:
+            containers:
+            - name: caos
+                image: registry.k8s.io/goproxy:0.1
+                ports:
+                - containerPort: 8080
+                livenessProbe:
+                tcpSocket:
+                port: 8080
+                initialDelaySeconds: 5 # -> tempo para comecar a testar o endpoint apos o start do container
+                periodSeconds: 10 # -> intervalo entre as chamadas
+                failureThreshold: 1 # -> quantidade de tolerancia de erro
+                successThreshold: 1 # -> quantidade de sucesso para zerar o contador de erro
+                timeoutSeconds: 5 

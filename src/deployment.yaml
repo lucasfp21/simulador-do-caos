@@ -14,19 +14,12 @@ spec:
     spec:
       containers:
       - name: caos
-        image: registry.k8s.io/busybox
-        command:
-          - /bin/sh
-          - -c
-        args:
-          - touch /tmp/health; sleep 360;
+        image: registry.k8s.io/goproxy:0.1
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
         livenessProbe:
-         exec:
-          command:
-            - cat
-            - /tmp/health
+         tcpSocket:
+          port: 8080
          initialDelaySeconds: 5 # -> tempo para comecar a testar o endpoint apos o start do container
          periodSeconds: 10 # -> intervalo entre as chamadas
          failureThreshold: 1 # -> quantidade de tolerancia de erro
