@@ -34,3 +34,47 @@
                 failureThreshold: 1 # -> quantidade de tolerancia de erro
                 successThreshold: 1 # -> quantidade de sucesso para zerar o contador de erro
                 timeoutSeconds: 5 
+        
+    * exec
+        valida a aplicacao rodando um comando
+
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: caos
+        spec:
+        replicas: 1
+        selector:
+            matchLabels:
+            app: caos
+        template:
+            metadata:
+            labels:
+                app: caos
+            spec:
+            containers:
+            - name: caos
+                image: registry.k8s.io/busybox
+                command:
+                - /bin/sh
+                - -c
+                args:
+                - touch /tmp/health; sleep 360;
+                ports:
+                - containerPort: 3000
+                livenessProbe:
+                exec:
+                command:
+                    - cat
+                    - /tmp/health
+                initialDelaySeconds: 5 # -> tempo para comecar a testar o endpoint apos o start do container
+                periodSeconds: 10 # -> intervalo entre as chamadas
+                failureThreshold: 1 # -> quantidade de tolerancia de erro
+                successThreshold: 1 # -> quantidade de sucesso para zerar o contador de erro
+                timeoutSeconds: 5 
+
+    kubectl get pod
+    kubectl exec -it <nome do pod> -- /bin/sh
+
+    * TCP
+    
