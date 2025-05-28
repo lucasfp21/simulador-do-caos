@@ -1,0 +1,5 @@
+# liveness probe
+    forma do k8s verificar a saude da sua aplicacao
+    * htpp
+        checa um endpoint e restarta o container e tomar um erro na chamada
+        
