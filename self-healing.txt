@@ -2,4 +2,35 @@
     forma do k8s verificar a saude da sua aplicacao
     * htpp
         checa um endpoint e restarta o container e tomar um erro na chamada
-        
+
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+        name: caos
+        spec:
+        replicas: 1
+        selector:
+            matchLabels:
+            app: caos
+        template:
+            metadata:
+            labels:
+                app: caos
+            spec:
+            containers:
+            - name: caos
+                image: lufertony/simulador-do-caos:v1
+                ports:
+                - containerPort: 3000
+                livenessProbe:
+                httpGet:
+                    port: 3000
+                    path: /health
+                    httpHeaders:
+                    - name: token
+                        value: kajsdkhsjkdh
+                initialDelaySeconds: 5 # -> tempo para comecar a testar o endpoint apos o start do container
+                periodSeconds: 10 # -> intervalo entre as chamadas
+                failureThreshold: 1 # -> quantidade de tolerancia de erro
+                successThreshold: 1 # -> quantidade de sucesso para zerar o contador de erro
+                timeoutSeconds: 5 
