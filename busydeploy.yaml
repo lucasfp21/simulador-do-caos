@@ -9,7 +9,8 @@ spec:
   - name: exec
     image: busybox
     command: # => entrypoint
-      - echo
+      - /bin/sh
     args: # => cmd
-      - "hello world"
+      - -c
+      - touch /tmp/feliznavida.txt; sleep 120;
   restartPolicy: Never

@@ -7,4 +7,25 @@
         kubectl get pod/caos-7fff46899b-4q59t -o yaml | grep -i restartPolicy
             geralmente é o always
     
-    
+# Commands e args
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    name: exec
+    labels:
+        name: exec
+    spec:
+    containers:
+    - name: exec
+        image: busybox
+        command: # => entrypoint
+        - /bin/sh
+        args: # => cmd
+        - c
+        - touch /tmp/feliznavida.txt; sleep 120;
+    restartPolicy: Never
+
+    kubectl exec -it <nome do pod> -- /bin/bash
+        para entrar no pod validar a criacao do arquivo
+
+        
