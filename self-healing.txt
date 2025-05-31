@@ -222,3 +222,97 @@ template:
           successThreshold: 1 # -> quantidade de sucesso para zerar o contador de erro
           timeoutSeconds: 5 
         
+# startup probe:
+  usado para controlar e validar o start de um container (app) dentro do pod, geralmente é após o proceso de startup que o liveness e o readinessProbe sao acionados
+
+  * htpp:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caos
+  template:
+    metadata:
+      labels:
+        app: caos
+    spec:
+      containers:
+        - name: caos
+          image: lufertony/simulador-do-caos:v1
+          ports:
+            - containerPort: 3000
+          startupProbe:
+            httpGet:
+              port: 3000
+              path: /health
+            failureThreshold: 30
+            periodSeconds: 10
+
+  * EXEC
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+    app: caos
+template:
+  metadata:
+  labels:
+    app: caos
+  spec:
+    containers:
+      - name: caos
+        image: registry.k8s.io/busybox
+        command:
+          - /bin/sh
+          - -c
+        args:
+          - touch /tmp/ready; sleep 360; rm /tmp/ready; sleep 600;
+        ports:
+          - containerPort: 3000
+        startupProbe:
+          exec:
+            command:
+              - cat /tmp/health
+          failureThreshold: 30
+          periodSeconds: 10
+
+  * TCP
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caos
+spec:
+  replicas: 1
+selector:
+  matchLabels:
+  app: caos
+template:
+  metadata:
+  labels:
+    app: caos
+spec:
+  containers:
+    - name: caos
+      image: registry.k8s.io/goproxy:0.1
+      ports:
+        - containerPort: 8080
+      startupProbe::
+        tcpSocket:
+          port: 8080
+        initialDelaySeconds: 5 
+        periodSeconds: 10 
+
+# Labels
+  funciona como um identificador basicamente, faz com que os recursos utilizem as labels para se comunicar entre si
+# Annotations
+  as Annotations por sua vez já funcionam como tag, simplesmente para identificação
+  existem alguns recursos do k8s (ingress controller) que podem utilizar as tags como filtro para realizar tarefas
+  
